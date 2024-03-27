@@ -98,6 +98,7 @@ const handleRefreshToken = async (req, res) => {
 			_id: user._id,
 			accessToken,
 			email: user.email,
+			role: user.role,
 		};
 
 		res.json(userWithoutPassword);
