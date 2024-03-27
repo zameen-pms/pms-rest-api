@@ -39,6 +39,7 @@ const handleLogin = async (req, res) => {
 		const userWithoutPassword = {
 			id: user._id,
 			email: user.email,
+			role: user.role,
 			createdAt: user.createdAt,
 			updatedAt: user.updatedAt,
 		};

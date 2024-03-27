@@ -10,9 +10,8 @@ const {
 const router = require("express").Router();
 
 router.post("/login", handleLogin);
-router.use(verifyJwt);
-router.get("/refresh", handleRefreshToken);
-router.get("/logout", handleLogout);
+router.post("/refresh", handleRefreshToken);
+router.post("/logout", handleLogout);
 router.post("/request-reset", handleResetRequest);
 router.post("/reset-password", handleResetPassword);
 
