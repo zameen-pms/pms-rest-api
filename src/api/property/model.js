@@ -15,6 +15,8 @@ const propertySchema = new Schema(
 			enum: ["Single-Family", "Multi-Family"],
 			default: "Single-Family",
 		},
+		owner: { type: Schema.Types.ObjectId, ref: "User" },
+		manager: { type: Schema.Types.ObjectId, ref: "User" },
 	},
 	{ timestamps: true }
 );

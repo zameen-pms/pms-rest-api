@@ -10,6 +10,8 @@ const propertyValidationSchema = Joi.object({
 	}).required(),
 	units: Joi.array().items(Joi.string()),
 	type: Joi.string().valid("Single-Family", "Multi-Family"),
+	owner: Joi.string(),
+	manager: Joi.string(),
 });
 
 module.exports = propertyValidationSchema;

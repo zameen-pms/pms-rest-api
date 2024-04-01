@@ -5,7 +5,7 @@ const unitValidationSchema = Joi.object({
 	property: Joi.string().required(),
 	lease: Joi.string(),
 	tenants: Joi.array().items(Joi.string()),
-	status: Joi.string(),
+	status: Joi.string().valid("Available", "Unavailable", "Occupied"),
 });
 
 module.exports = unitValidationSchema;

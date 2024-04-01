@@ -12,7 +12,7 @@ const unitSchema = new Schema(
 		tenants: [{ type: Schema.Types.ObjectId, ref: "User" }],
 		status: {
 			type: String,
-			enum: ["Available", "Occupied"],
+			enum: ["Available", "Unavailable", "Occupied"],
 			default: "Available",
 		},
 	},
