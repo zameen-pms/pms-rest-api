@@ -6,7 +6,6 @@ const unitSchema = new Schema(
 		property: {
 			type: Schema.Types.ObjectId,
 			ref: "Property",
-			required: true,
 		},
 		lease: { type: Schema.Types.ObjectId, ref: "Lease" },
 		tenants: [{ type: Schema.Types.ObjectId, ref: "User" }],
