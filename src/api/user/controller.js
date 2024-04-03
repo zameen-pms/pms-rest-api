@@ -18,11 +18,18 @@ const createUser = async (req, res) => {
 			return res.status(400).json("User already exists.");
 		}
 
-		const hashedPassword = await encryptPassword(password);
-		const user = await userRepo.create({
-			...req.body,
-			password: hashedPassword,
-		});
+		let user;
+		if (password) {
+			const hashedPassword = await encryptPassword(password);
+			user = await userRepo.create({
+				...req.body,
+				password: hashedPassword,
+			});
+		} else {
+			user = await userRepo.create({
+				...req.body,
+			});
+		}
 
 		res.json(user);
 	} catch (err) {

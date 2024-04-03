@@ -20,7 +20,12 @@ const createUnit = async (req, res) => {
 
 const getUnits = async (req, res) => {
 	try {
-		const units = await Unit.find(req.query);
+		const units = await Unit.find(req.query).populate({
+			path: "lease",
+			populate: {
+				path: "tenants",
+			},
+		});
 		res.json(units);
 	} catch (err) {
 		res.status(500).json(err.message);

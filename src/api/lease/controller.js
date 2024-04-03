@@ -22,7 +22,7 @@ const getLeases = async (req, res) => {
 	try {
 		const leases = await Lease.find(req.query)
 			.populate("unit")
-			.populate("tenant");
+			.populate("tenants");
 		res.json(leases);
 	} catch (err) {
 		res.status(500).json(err.message);
