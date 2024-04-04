@@ -49,7 +49,8 @@ const checkPropertyExists = async (req, res, next) => {
 
 const getPropertyById = async (req, res) => {
 	try {
-		res.json(req.property);
+		const property = await req.property.populate("units");
+		res.json(property);
 	} catch (err) {
 		res.status(500).json(err.message);
 	}
