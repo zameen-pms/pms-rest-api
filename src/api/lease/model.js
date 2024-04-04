@@ -9,10 +9,10 @@ const leaseSchema = new Schema(
 				ref: "User",
 			},
 		],
-		startDate: { type: Date, required: true },
-		endDate: { type: Date, required: true },
-		rent: { type: Number, required: true },
-		deposit: { type: Number, required: true },
+		startDate: { type: Date },
+		endDate: { type: Date },
+		rent: { type: Number },
+		deposit: { type: Number },
 	},
 	{ timestamps: true }
 );
