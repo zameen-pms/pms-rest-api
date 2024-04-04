@@ -20,9 +20,7 @@ const createLease = async (req, res) => {
 
 const getLeases = async (req, res) => {
 	try {
-		const leases = await Lease.find(req.query)
-			.populate("unit")
-			.populate("tenants");
+		const leases = await Lease.find(req.query);
 		res.json(leases);
 	} catch (err) {
 		res.status(500).json(err.message);
@@ -47,7 +45,8 @@ const checkLeaseExists = async (req, res, next) => {
 
 const getLeaseById = async (req, res) => {
 	try {
-		res.json(req.lease);
+		const lease = await req.lease.populate("tenants");
+		res.json(lease);
 	} catch (err) {
 		res.status(500).json(err.message);
 	}

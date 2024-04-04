@@ -20,8 +20,7 @@ app.use("/", require("./api/health"));
 app.use("/auth", require("./api/auth"));
 app.use("/users", require("./api/user"));
 app.use(verifyJwt);
-app.use("/properties", require("./api/property"));
-app.use("/units", require("./api/unit"));
+app.use("/singleFamilies", require("./api/singleFamily"));
 app.use("/leases", require("./api/lease"));
 
 app.use((err, _req, res, _next) => {

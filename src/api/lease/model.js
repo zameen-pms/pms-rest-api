@@ -2,7 +2,6 @@ const { Schema, model } = require("mongoose");
 
 const leaseSchema = new Schema(
 	{
-		unit: { type: Schema.Types.ObjectId, ref: "Unit" },
 		tenants: [
 			{
 				type: Schema.Types.ObjectId,
