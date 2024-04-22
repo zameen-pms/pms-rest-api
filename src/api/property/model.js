@@ -19,7 +19,7 @@ const propertySchema = new Schema(
 		},
 		manager: { type: Schema.Types.ObjectId, ref: "User" },
 		owner: { type: String },
-		metaData: { type: Map, of: String },
+		propertyData: { type: Schema.Types.ObjectId, ref: "PropertyData" },
 	},
 	{ timestamps: true }
 );
