@@ -1,16 +1,22 @@
 const Joi = require("joi");
 
-const singleFamilyValidationSchema = Joi.object({
+const propertyValidationSchema = Joi.object({
 	address: Joi.object({
 		street: Joi.string().required(),
 		city: Joi.string().required(),
 		state: Joi.string().required(),
 		zip: Joi.string().required(),
 	}).required(),
-	manager: Joi.string(),
-	lease: Joi.string(),
+	type: Joi.string().valid(
+		"Single-Family",
+		"Duplex",
+		"Multi-Family",
+		"Apartment"
+	),
 	availability: Joi.string().valid("Available", "Unavailable", "Occupied"),
+	manager: Joi.string(),
+	owner: Joi.string(),
 	metaData: Joi.object(),
 });
 
-module.exports = singleFamilyValidationSchema;
+module.exports = propertyValidationSchema;

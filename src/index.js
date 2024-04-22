@@ -20,8 +20,8 @@ app.use("/", require("./api/health"));
 app.use("/auth", require("./api/auth"));
 app.use("/users", require("./api/user"));
 app.use(verifyJwt);
-app.use("/singleFamilies", require("./api/singleFamily"));
-app.use("/leases", require("./api/lease"));
+app.use("/properties", require("./api/property"));
+app.use("/rent", require("./api/rent"));
 
 app.use((err, _req, res, _next) => {
 	res.status(500).json({ error: "Internal Server Error", details: err });

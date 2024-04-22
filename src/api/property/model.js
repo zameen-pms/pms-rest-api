@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const singleFamilySchema = new Schema(
+const propertySchema = new Schema(
 	{
 		address: {
 			street: { type: String, required: true },
@@ -8,21 +8,25 @@ const singleFamilySchema = new Schema(
 			state: { type: String, required: true },
 			zip: { type: String, required: true },
 		},
-		manager: { type: Schema.Types.ObjectId, ref: "User" },
-		lease: { type: Schema.Types.ObjectId, ref: "Lease" },
+		type: {
+			type: "String",
+			enum: ["Single-Family", "Duplex", "Multi-Family", "Apartment"],
+			default: "Single-Family",
+		},
 		availability: {
 			type: String,
 			enum: ["Available", "Unavailable", "Occupied"],
-			default: "Available",
 		},
+		manager: { type: Schema.Types.ObjectId, ref: "User" },
+		owner: { type: String },
 		metaData: { type: Map, of: String },
 	},
 	{ timestamps: true }
 );
 
-const SingleFamily = model("SingleFamily", singleFamilySchema);
+const Property = model("Property", propertySchema);
 
 module.exports = {
-	singleFamilySchema,
-	SingleFamily,
+	propertySchema,
+	Property,
 };
