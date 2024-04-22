@@ -31,7 +31,9 @@ const checkRentExists = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 
-		const rent = await rentRepo.findById(id);
+		const rent = await Rent.findById(id)
+			.populate("property")
+			.populate("tenant");
 		if (!rent) {
 			return res.status(404).json("Rent not found.");
 		}
@@ -45,8 +47,7 @@ const checkRentExists = async (req, res, next) => {
 
 const getRentById = async (req, res) => {
 	try {
-		const rent = await req.rent.populate("property").populate("tenant");
-		res.json(rent);
+		res.json(req.rent);
 	} catch (err) {
 		res.status(500).json(err.message);
 	}
