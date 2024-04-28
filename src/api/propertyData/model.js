@@ -17,7 +17,7 @@ const propertyDataSchema = new Schema(
 			},
 		},
 		generalInformation: {
-			country: { type: String, default: "" },
+			county: { type: String, default: "" },
 			residentialType: { type: String, default: "" },
 			listPrice: {
 				amount: { type: Number, default: 0 },
