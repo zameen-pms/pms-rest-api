@@ -96,7 +96,7 @@ const propertyDataSchema = new Schema(
 				],
 			},
 		],
-		notes: { type: String, default: "" },
+		notes: { type: String, default: "<p>No notes yet.</p>" },
 		assets: [
 			{
 				type: { type: String, enum: ["image", "video"] },
