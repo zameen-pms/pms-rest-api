@@ -80,20 +80,10 @@ const propertyDataSchema = new Schema(
 			howSold: { type: String, default: "" },
 			closingCosts: { type: String, default: "" },
 		},
-		rooms: [
-			{
-				name: String,
-				level: String,
-				dimensions: {
-					length: Number,
-					width: Number,
-				},
-				appliances: {
-					type: String,
-					default: "",
-				},
-			},
-		],
+		rooms: {
+			type: String,
+			default: "",
+		},
 		notes: { type: String, default: "<p>No notes yet.</p>" },
 		assets: [
 			{
