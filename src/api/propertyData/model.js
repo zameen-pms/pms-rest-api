@@ -88,12 +88,10 @@ const propertyDataSchema = new Schema(
 					length: Number,
 					width: Number,
 				},
-				appliances: [
-					{
-						name: String,
-						details: String,
-					},
-				],
+				appliances: {
+					type: String,
+					default: "<p>No appliances yet</p>",
+				},
 			},
 		],
 		notes: { type: String, default: "<p>No notes yet.</p>" },
