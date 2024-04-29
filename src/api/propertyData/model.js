@@ -90,7 +90,7 @@ const propertyDataSchema = new Schema(
 				},
 				appliances: {
 					type: String,
-					default: "<p>No appliances yet</p>",
+					default: "",
 				},
 			},
 		],
