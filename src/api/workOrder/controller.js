@@ -1,4 +1,5 @@
 const GenericRepository = require("../../repository");
+const { Comment } = require("../comment/model");
 const { WorkOrder } = require("./model");
 const workOrderValidationSchema = require("./validate");
 
@@ -36,7 +37,9 @@ const checkWorkOrderExists = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 
-		const workOrder = await WorkOrder.findById(id);
+		const workOrder = await WorkOrder.findById(id)
+			.populate("property")
+			.populate("comments");
 		if (!workOrder) {
 			return res.status(404).json("Work Order not found.");
 		}
@@ -70,6 +73,7 @@ const updateWorkOrderById = async (req, res) => {
 
 const deleteWorkOrderById = async (req, res) => {
 	try {
+		await Comment.deleteMany({ _id: { $in: req.workOrder.comments } });
 		await workOrderRepo.remove(req.workOrder._id);
 		res.json(true);
 	} catch (err) {

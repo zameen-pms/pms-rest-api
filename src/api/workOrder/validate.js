@@ -11,13 +11,8 @@ const workOrderValidationSchema = Joi.object({
 		"Cancelled"
 	),
 	completedAt: Joi.date(),
-	comments: Joi.array().items(
-		Joi.object({
-			createdBy: Joi.string(),
-			createdAt: Joi.date(),
-			message: Joi.string(),
-		})
-	),
+	assets: Joi.array().items(Joi.string()),
+	comments: Joi.array().items(Joi.string()),
 });
 
 module.exports = workOrderValidationSchema;

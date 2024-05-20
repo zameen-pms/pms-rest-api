@@ -15,11 +15,11 @@ const workOrderSchema = new Schema(
 			default: "Pending",
 		},
 		completedAt: { type: Date },
+		assets: [{ type: String }],
 		comments: [
 			{
-				createdBy: { type: String },
-				createdAt: { type: Date, default: Date.now() },
-				message: { type: String },
+				type: Schema.Types.ObjectId,
+				ref: "Comment",
 			},
 		],
 	},

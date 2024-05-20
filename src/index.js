@@ -23,6 +23,7 @@ app.use(verifyJwt);
 app.use("/properties", require("./api/property"));
 app.use("/propertyData", require("./api/propertyData"));
 app.use("/rent", require("./api/rent"));
+app.use("/comments", require("./api/comment"));
 app.use("/workOrders", require("./api/workOrder"));
 
 app.use((err, _req, res, _next) => {
