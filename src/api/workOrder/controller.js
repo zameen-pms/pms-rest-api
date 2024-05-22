@@ -26,7 +26,7 @@ const createWorkOrder = async (req, res) => {
 
 const getWorkOrders = async (req, res) => {
 	try {
-		const workOrders = await WorkOrder.find(req.query);
+		const workOrders = await WorkOrder.find(req.query).populate("property");
 		res.json(workOrders);
 	} catch (err) {
 		res.status(500).json(err.message);
