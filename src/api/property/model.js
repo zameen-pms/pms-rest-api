@@ -18,7 +18,6 @@ const propertySchema = new Schema(
 			enum: ["Available", "Unavailable", "Occupied"],
 			default: "Available",
 		},
-		manager: { type: Schema.Types.ObjectId, ref: "User" },
 		owner: { type: String },
 		propertyData: { type: Schema.Types.ObjectId, ref: "PropertyData" },
 	},
