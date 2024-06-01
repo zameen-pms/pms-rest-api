@@ -1,14 +1,14 @@
-const Transaction = require("./model");
-const transactionValidationSchema = require("./validate");
+const Lease = require("./model");
+const leaseValidation = require("./validate");
 
 const createObject = async (req, res) => {
 	try {
-		const { error } = transactionValidationSchema.validate(req.body);
+		const { error } = leaseValidation.validate(req.body);
 		if (error?.details[0]?.message) {
 			return res.status(400).json(error.details[0].message);
 		}
 
-		const object = new Transaction(req.body);
+		const object = new Lease(req.body);
 		await object.save();
 
 		res.json(object);
@@ -19,7 +19,7 @@ const createObject = async (req, res) => {
 
 const getObjects = async (req, res) => {
 	try {
-		const objects = await Transaction.find(req.query);
+		const objects = await Lease.find(req.query);
 		res.json(objects);
 	} catch (err) {
 		res.status(500).json(err.message);
@@ -30,9 +30,9 @@ const checkObjectExists = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 
-		const object = await Transaction.findById(id);
+		const object = await Lease.findById(id);
 		if (!object) {
-			return res.status(404).json("Transaction not found.");
+			return res.status(404).json("Lease not found.");
 		}
 
 		req.object = object;
@@ -44,7 +44,9 @@ const checkObjectExists = async (req, res, next) => {
 
 const getObjectById = async (req, res) => {
 	try {
-		res.json(req.object);
+		const object = req.body;
+		await object.populate("tenants");
+		res.json(object);
 	} catch (err) {
 		res.status(500).json(err.message);
 	}
@@ -53,7 +55,7 @@ const getObjectById = async (req, res) => {
 const updateObjectById = async (req, res) => {
 	try {
 		const { _id: id } = req.object;
-		const object = await Transaction.findByIdAndUpdate(id, req.body, {
+		const object = await Lease.findByIdAndUpdate(id, req.body, {
 			new: true,
 		});
 		res.json(object);
@@ -65,7 +67,7 @@ const updateObjectById = async (req, res) => {
 const deleteObjectById = async (req, res) => {
 	try {
 		const { _id: id } = req.object;
-		await Transaction.findByIdAndDelete(id);
+		await Lease.findByIdAndDelete(id);
 		res.json(id);
 	} catch (err) {
 		res.status(500).json(err.message);
