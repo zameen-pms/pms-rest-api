@@ -20,6 +20,8 @@ app.use("/", require("./api/health"));
 app.use("/auth", require("./api/auth"));
 app.use("/users", require("./api/user"));
 app.use(verifyJwt);
+app.use("/assets", require("./api/assets"));
+app.use("/documents", require("./api/document"));
 app.use("/leases", require("./api/lease"));
 app.use("/properties", require("./api/property"));
 app.use("/propertyData", require("./api/propertyData"));

@@ -16,6 +16,10 @@ const leaseSchema = new Schema(
 				ref: "User",
 			},
 		],
+		document: {
+			type: Schema.Types.ObjectId,
+			ref: "Document",
+		},
 	},
 	{
 		timestamps: true,
