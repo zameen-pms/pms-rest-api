@@ -8,7 +8,7 @@ const documentSchema = new Schema(
 		},
 		file: { type: String, required: true },
 		type: { type: String, required: true },
-		description: { type: String, default: "" },
+		description: { type: String },
 	},
 	{
 		timestamps: true,
