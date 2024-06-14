@@ -7,6 +7,7 @@ const {
 const multer = require("multer");
 const { v4: uuid } = require("uuid");
 const stream = require("stream");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const s3Client = new S3Client({
 	region: process.env.AWS_S3_REGION,
@@ -67,6 +68,29 @@ const getAssetByKey = async (req, res) => {
 	}
 };
 
+const getAssetUrl = async (req, res) => {
+	try {
+		const { key } = req.params;
+		if (!key) {
+			return res.status(400).json("Key is required.");
+		}
+
+		const params = {
+			Bucket: process.env.AWS_S3_BUCKET_NAME,
+			Key: key,
+		};
+		const command = new GetObjectCommand(params);
+
+		const presignedUrl = await getSignedUrl(s3Client, command, {
+			expiresIn: 60 * 60 * 24,
+		});
+
+		res.json(presignedUrl);
+	} catch (error) {
+		res.status(500).json("Failed to create presigned URL");
+	}
+};
+
 const deleteAssetByKey = async (req, res) => {
 	try {
 		const { key } = req.params;
@@ -89,5 +113,6 @@ module.exports = {
 	upload,
 	uploadAsset,
 	getAssetByKey,
+	getAssetUrl,
 	deleteAssetByKey,
 };
