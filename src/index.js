@@ -21,9 +21,11 @@ app.use("/auth", require("./api/auth"));
 app.use("/users", require("./api/user"));
 app.use(verifyJwt);
 app.use("/assets", require("./api/assets"));
+app.use("/comments", require("./api/comment"));
 app.use("/documents", require("./api/document"));
 app.use("/properties", require("./api/property"));
 app.use("/propertyData", require("./api/propertyData"));
+app.use("/workOrders", require("./api/workOrder"));
 
 app.use((err, _req, res, _next) => {
 	res.status(500).json({ error: "Internal Server Error", details: err });
