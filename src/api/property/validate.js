@@ -14,7 +14,7 @@ const propertyValidationSchema = Joi.object({
 		"Apartment"
 	),
 	availability: Joi.string().valid("Available", "Unavailable", "Occupied"),
-	manager: Joi.string(),
+	purchaseDate: Joi.date(),
 	owner: Joi.string(),
 	propertyData: Joi.string(),
 });
