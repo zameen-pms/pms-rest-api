@@ -20,7 +20,9 @@ const createObject = async (req, res) => {
 
 const getObjects = async (req, res) => {
 	try {
-		const objects = await WorkOrder.find(req.query).sort({ createdAt: -1 });
+		const objects = await WorkOrder.find(req.query)
+			.sort({ createdAt: -1 })
+			.populate("property");
 		res.json(objects);
 	} catch (err) {
 		res.status(500).json(err.message);
