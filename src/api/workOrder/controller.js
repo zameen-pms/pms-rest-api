@@ -1,6 +1,7 @@
 const Comment = require("../comment/model");
 const WorkOrder = require("./model");
 const workOrderValidation = require("./validate");
+const { ObjectId } = require("mongoose");
 
 const createObject = async (req, res) => {
 	try {
@@ -121,9 +122,8 @@ const removeCommentById = async (req, res) => {
 		}
 
 		const { object } = req;
-		object.comments = object.comments.filter(
-			(comment) => comment !== commentId
-		);
+		const comments = object.comments.map((id) => id.toString());
+		object.comments = comments.filter((comment) => comment !== commentId);
 		await object.save();
 
 		res.json(commentId);
