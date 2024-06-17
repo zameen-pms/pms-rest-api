@@ -51,7 +51,13 @@ const getObjectById = async (req, res) => {
 		const object = await WorkOrder.findById(id)
 			.populate("property")
 			.populate("createdBy")
-			.populate("comments");
+			.populate({
+				path: "comments",
+				populate: {
+					path: "user",
+					model: "User",
+				},
+			});
 		res.json(object);
 	} catch (err) {
 		res.status(500).json(err.message);
