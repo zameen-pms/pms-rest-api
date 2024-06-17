@@ -122,7 +122,7 @@ const removeCommentById = async (req, res) => {
 
 		const { object } = req;
 		object.comments = object.comments.filter(
-			(comment) => comment === commentId
+			(comment) => comment !== commentId
 		);
 		await object.save();
 
