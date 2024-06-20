@@ -24,7 +24,7 @@ const propertySchema = new Schema(
 		images: [{ type: String }],
 		general: {
 			beds: { type: Number, default: 0 },
-			baths: { type: Number, defatul: 0 },
+			baths: { type: Number, default: 0 },
 			sqft: { type: Number, default: 0 },
 		},
 	},
