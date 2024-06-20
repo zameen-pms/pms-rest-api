@@ -17,11 +17,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/", require("./api/health"));
+app.use("/assets", require("./api/assets"));
 app.use("/auth", require("./api/auth"));
 app.use("/properties", require("./api/property"));
 app.use("/users", require("./api/user"));
 app.use(verifyJwt);
-app.use("/assets", require("./api/assets"));
 app.use("/comments", require("./api/comment"));
 app.use("/documents", require("./api/document"));
 app.use("/propertyData", require("./api/propertyData"));
