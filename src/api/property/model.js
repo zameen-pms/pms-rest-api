@@ -26,6 +26,7 @@ const propertySchema = new Schema(
 			beds: { type: Number, default: 0 },
 			baths: { type: Number, default: 0 },
 			sqft: { type: Number, default: 0 },
+			rent: { type: Number, default: 0 },
 		},
 	},
 	{ timestamps: true }
