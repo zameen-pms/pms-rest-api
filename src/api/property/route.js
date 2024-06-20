@@ -1,3 +1,4 @@
+const verifyJwt = require("../../middleware/verifyJwt");
 const {
 	createProperty,
 	getProperties,
@@ -9,8 +10,11 @@ const {
 
 const router = require("express").Router();
 
-router.post("/", createProperty);
 router.get("/", getProperties);
+
+router.use(verifyJwt);
+
+router.post("/", createProperty);
 router.get("/:id", checkPropertyExists, getPropertyById);
 router.put("/:id", checkPropertyExists, updatePropertyById);
 router.delete("/:id", checkPropertyExists, deletePropertyById);
