@@ -17,6 +17,7 @@ const propertyValidationSchema = Joi.object({
 	purchaseDate: Joi.date(),
 	owner: Joi.string(),
 	propertyData: Joi.string(),
+	images: Joi.array(),
 });
 
 module.exports = propertyValidationSchema;

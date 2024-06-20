@@ -21,6 +21,7 @@ const propertySchema = new Schema(
 		purchaseDate: { type: Date },
 		owner: { type: String },
 		propertyData: { type: Schema.Types.ObjectId, ref: "PropertyData" },
+		images: [{ type: String }],
 	},
 	{ timestamps: true }
 );
