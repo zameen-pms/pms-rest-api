@@ -22,6 +22,11 @@ const propertySchema = new Schema(
 		owner: { type: String },
 		propertyData: { type: Schema.Types.ObjectId, ref: "PropertyData" },
 		images: [{ type: String }],
+		general: {
+			beds: { type: Number, default: 0 },
+			baths: { type: Number, defatul: 0 },
+			sqft: { type: Number, default: 0 },
+		},
 	},
 	{ timestamps: true }
 );

@@ -18,6 +18,11 @@ const propertyValidationSchema = Joi.object({
 	owner: Joi.string(),
 	propertyData: Joi.string(),
 	images: Joi.array(),
+	general: Joi.object({
+		beds: Joi.number(),
+		baths: Joi.number(),
+		sqft: Joi.number(),
+	}),
 });
 
 module.exports = propertyValidationSchema;
