@@ -13,10 +13,8 @@ const propertyValidationSchema = Joi.object({
 		"Multi-Family",
 		"Apartment"
 	),
+	owners: Joi.array(),
 	availability: Joi.string().valid("Available", "Unavailable", "Occupied"),
-	purchaseDate: Joi.date(),
-	owner: Joi.string(),
-	propertyData: Joi.string(),
 	images: Joi.array(),
 	general: Joi.object({
 		beds: Joi.number(),

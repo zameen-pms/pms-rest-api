@@ -13,14 +13,12 @@ const propertySchema = new Schema(
 			enum: ["Single-Family", "Duplex", "Multi-Family", "Apartment"],
 			default: "Single-Family",
 		},
+		owners: [{ type: String }],
 		availability: {
 			type: String,
 			enum: ["Available", "Unavailable", "Occupied"],
 			default: "Available",
 		},
-		purchaseDate: { type: Date },
-		owner: { type: String },
-		propertyData: { type: Schema.Types.ObjectId, ref: "PropertyData" },
 		images: [{ type: String }],
 		general: {
 			beds: { type: Number, default: 0 },
