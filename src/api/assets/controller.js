@@ -80,12 +80,18 @@ const getAssetUrl = async (req, res) => {
 			Key: key,
 		};
 		const command = new GetObjectCommand(params);
+		const data = await s3Client.send(command);
 
-		const presignedUrl = await getSignedUrl(s3Client, command, {
-			expiresIn: 60 * 60 * 24,
-		});
+		res.setHeader("Content-Type", data.ContentType);
+		res.setHeader("Content-Length", data.ContentLength);
 
-		res.json(presignedUrl);
+		data.Body.pipe(res);
+
+		// const presignedUrl = await getSignedUrl(s3Client, command, {
+		// 	expiresIn: 60 * 60 * 24,
+		// });
+
+		// res.json(presignedUrl);
 	} catch (error) {
 		res.status(500).json("Failed to create presigned URL");
 	}
