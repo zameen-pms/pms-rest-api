@@ -1,4 +1,3 @@
-const verifyJwt = require("../../middleware/verifyJwt");
 const {
 	upload,
 	uploadAsset,
@@ -9,12 +8,9 @@ const {
 
 const router = require("express").Router();
 
-router.get("/url/:key", getAssetUrl);
 router.post("/", upload.single("file"), uploadAsset);
+router.get("/url/:key", getAssetUrl);
 router.get("/:key", getAssetByKey);
-
-router.use(verifyJwt);
-
 router.delete("/:key", deleteAssetByKey);
 
 module.exports = router;
