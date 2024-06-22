@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/", require("./api/health"));
+app.use("/applications", require("./api/application"));
 app.use("/assets", require("./api/assets"));
 app.use("/auth", require("./api/auth"));
 app.use("/properties", require("./api/property"));
