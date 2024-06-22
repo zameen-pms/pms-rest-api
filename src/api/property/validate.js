@@ -21,6 +21,7 @@ const propertyValidationSchema = Joi.object({
 		baths: Joi.number(),
 		sqft: Joi.number(),
 		rent: Joi.number(),
+		description: Joi.string(),
 	}),
 });
 
