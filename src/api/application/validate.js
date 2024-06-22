@@ -29,6 +29,7 @@ const applicationValidation = Joi.object({
 	reasonForMoving: Joi.string(),
 	additionalComments: Joi.string(),
 	questions: Joi.string(),
+	incomeFiles: Joi.array(),
 });
 
 module.exports = applicationValidation;

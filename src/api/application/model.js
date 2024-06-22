@@ -127,6 +127,7 @@ const applicationSchema = new Schema(
 		reasonForMoving: String,
 		additionalComments: String,
 		questions: String,
+		incomeFiles: [String],
 	},
 	{
 		timestamps: true,
