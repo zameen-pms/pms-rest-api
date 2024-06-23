@@ -19,7 +19,7 @@ const createObject = async (req, res) => {
 
 const getObjects = async (req, res) => {
 	try {
-		const objects = await Application.find(req.query);
+		const objects = await Application.find(req.query).populate("user");
 		res.json(objects);
 	} catch (err) {
 		res.status(500).json(err.message);
