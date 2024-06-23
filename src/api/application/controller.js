@@ -45,7 +45,9 @@ const checkObjectExists = async (req, res, next) => {
 const getObjectById = async (req, res) => {
 	try {
 		const { _id: id } = req.object;
-		const object = await Application.findById(id).populate("user");
+		const object = await Application.findById(id)
+			.populate("property")
+			.populate("user");
 		res.json(object);
 	} catch (err) {
 		res.status(500).json(err.message);

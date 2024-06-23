@@ -1,6 +1,7 @@
 const Joi = require("joi");
 
 const applicationValidation = Joi.object({
+	property: Joi.string().required(),
 	user: Joi.string().required(),
 	hasPaid: Joi.boolean(),
 	status: Joi.string().valid("In-Review", "Approved", "Rejected"),
