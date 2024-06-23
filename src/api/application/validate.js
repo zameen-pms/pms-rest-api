@@ -3,6 +3,7 @@ const Joi = require("joi");
 const applicationValidation = Joi.object({
 	user: Joi.string().required(),
 	hasPaid: Joi.boolean(),
+	status: Joi.string().valid("In-Review", "Approved", "Rejected"),
 	signature: Joi.object({
 		name: Joi.string().required(),
 		date: Joi.string().required(),

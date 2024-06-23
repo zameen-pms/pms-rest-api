@@ -11,6 +11,11 @@ const applicationSchema = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		status: {
+			type: String,
+			enum: ["In-Review", "Approved", "Rejected"],
+			default: "In-Review",
+		},
 		signature: {
 			name: { type: String, required: true },
 			date: { type: String, required: true },
