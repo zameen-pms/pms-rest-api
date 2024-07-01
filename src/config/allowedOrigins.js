@@ -1,7 +1,3 @@
-const allowedOrigins = [
-	"http://localhost:5001",
-	"https://zameen-management.netlify.app",
-	"https://zameenmanagement.netlify.app",
-];
+const allowedOrigins = ["https://admin-zameen-management.netlify.app"];
 
 module.exports = allowedOrigins;
