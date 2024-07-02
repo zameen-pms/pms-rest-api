@@ -25,6 +25,7 @@ app.use("/users", require("./api/user"));
 app.use(verifyJwt);
 app.use("/comments", require("./api/comment"));
 app.use("/documents", require("./api/document"));
+app.use("/email", require("./api/email"));
 app.use("/workOrders", require("./api/workOrder"));
 
 app.use((err, _req, res, _next) => {

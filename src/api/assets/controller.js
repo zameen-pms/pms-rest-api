@@ -7,13 +7,12 @@ const {
 const multer = require("multer");
 const { v4: uuid } = require("uuid");
 const stream = require("stream");
-const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 
 const s3Client = new S3Client({
-	region: process.env.AWS_S3_REGION,
+	region: process.env.AWS_REGION,
 	credentials: {
-		accessKeyId: process.env.AWS_S3_ACCESS_KEY,
-		secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+		accessKeyId: process.env.AWS_ACCESS_KEY,
+		secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	},
 });
 
@@ -86,8 +85,8 @@ const getAssetUrl = async (req, res) => {
 		res.setHeader("Content-Length", data.ContentLength);
 
 		data.Body.pipe(res);
-	} catch (error) {
-		res.status(500).json("Failed to create presigned URL");
+	} catch (err) {
+		res.status(500).json(err.message);
 	}
 };
 
