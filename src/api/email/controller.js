@@ -19,13 +19,13 @@ const sendEmail = async (req, res) => {
 		}
 
 		const params = {
-			Source: process.env.AWS_SENDER_EMAIL,
+			Source: `Zameen Management <${process.env.AWS_SENDER_EMAIL}>`,
 			Destination: {
 				ToAddresses: [to],
 			},
 			Message: {
 				Body: {
-					Text: { Data: message },
+					Html: { Data: message },
 				},
 				Subject: { Data: subject },
 			},

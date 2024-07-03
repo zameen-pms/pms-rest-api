@@ -152,7 +152,7 @@ const handleResetRequest = async (req, res) => {
 		user.resetTokenExpiry = Date.now() + 24 * 60 * 60 * 1000;
 		await user.save();
 
-		res.json({ resetToken });
+		res.json(resetToken);
 	} catch (err) {
 		res.status(500).json({ error: err.message });
 	}
