@@ -19,7 +19,13 @@ const propertySchema = new Schema(
 			enum: ["Available", "Unavailable", "Occupied"],
 			default: "Available",
 		},
-		images: [{ type: String }],
+		images: [
+			{
+				key: String,
+				name: String,
+				description: String,
+			},
+		],
 		general: {
 			beds: { type: Number, default: 0 },
 			baths: { type: Number, default: 0 },

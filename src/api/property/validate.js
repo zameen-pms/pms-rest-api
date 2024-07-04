@@ -16,13 +16,7 @@ const propertyValidationSchema = Joi.object({
 	owners: Joi.array(),
 	availability: Joi.string().valid("Available", "Unavailable", "Occupied"),
 	images: Joi.array(),
-	general: Joi.object({
-		beds: Joi.number(),
-		baths: Joi.number(),
-		sqft: Joi.number(),
-		rent: Joi.number(),
-		description: Joi.string(),
-	}),
+	general: Joi.object(),
 });
 
 module.exports = propertyValidationSchema;
