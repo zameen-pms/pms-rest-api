@@ -4,9 +4,9 @@ const {
 	GetObjectCommand,
 	DeleteObjectCommand,
 } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const multer = require("multer");
 const { v4: uuid } = require("uuid");
-const stream = require("stream");
 
 const s3Client = new S3Client({
 	region: process.env.AWS_REGION,
@@ -47,27 +47,7 @@ const uploadAsset = async (req, res) => {
 	}
 };
 
-const getAssetByKey = async (req, res) => {
-	try {
-		const { key } = req.params;
-		const bucketName = process.env.AWS_S3_BUCKET_NAME;
-
-		const params = {
-			Bucket: bucketName,
-			Key: key,
-		};
-		const command = new GetObjectCommand(params);
-		const data = await s3Client.send(command);
-
-		const passThrough = new stream.PassThrough();
-		data.Body.pipe(passThrough);
-		passThrough.pipe(res);
-	} catch (err) {
-		res.status(500).json(err.message);
-	}
-};
-
-const getAssetUrl = async (req, res) => {
+const getAsset = async (req, res) => {
 	try {
 		const { key } = req.params;
 		if (!key) {
@@ -78,13 +58,13 @@ const getAssetUrl = async (req, res) => {
 			Bucket: process.env.AWS_S3_BUCKET_NAME,
 			Key: key,
 		};
+
 		const command = new GetObjectCommand(params);
-		const data = await s3Client.send(command);
+		const url = await getSignedUrl(s3Client, command, {
+			expiresIn: 3600,
+		});
 
-		res.setHeader("Content-Type", data.ContentType);
-		res.setHeader("Content-Length", data.ContentLength);
-
-		data.Body.pipe(res);
+		res.json(url);
 	} catch (err) {
 		res.status(500).json(err.message);
 	}
@@ -111,7 +91,6 @@ const deleteAssetByKey = async (req, res) => {
 module.exports = {
 	upload,
 	uploadAsset,
-	getAssetByKey,
-	getAssetUrl,
+	getAsset,
 	deleteAssetByKey,
 };

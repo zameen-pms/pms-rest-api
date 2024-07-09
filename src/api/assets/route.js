@@ -1,16 +1,14 @@
 const {
 	upload,
 	uploadAsset,
-	getAssetByKey,
 	deleteAssetByKey,
-	getAssetUrl,
+	getAsset,
 } = require("./controller");
 
 const router = require("express").Router();
 
 router.post("/", upload.single("file"), uploadAsset);
-router.get("/url/:key", getAssetUrl);
-router.get("/:key", getAssetByKey);
+router.get("/:key", getAsset);
 router.delete("/:key", deleteAssetByKey);
 
 module.exports = router;
