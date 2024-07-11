@@ -70,6 +70,29 @@ const getAsset = async (req, res) => {
 	}
 };
 
+const getRedirectUrl = async (req, res) => {
+	try {
+		const { key } = req.params;
+		if (!key) {
+			return res.status(400).json("Key is required.");
+		}
+
+		const params = {
+			Bucket: process.env.AWS_S3_BUCKET_NAME,
+			Key: key,
+		};
+
+		const command = new GetObjectCommand(params);
+		const url = await getSignedUrl(s3Client, command, {
+			expiresIn: 3600,
+		});
+
+		res.redirect(url);
+	} catch (err) {
+		res.status(500).json(err.message);
+	}
+};
+
 const deleteAssetByKey = async (req, res) => {
 	try {
 		const { key } = req.params;
@@ -92,5 +115,6 @@ module.exports = {
 	upload,
 	uploadAsset,
 	getAsset,
+	getRedirectUrl,
 	deleteAssetByKey,
 };
