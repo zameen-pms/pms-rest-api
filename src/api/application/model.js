@@ -1,5 +1,50 @@
 const { Schema, model } = require("mongoose");
 
+const addressSchema = new Schema({
+	street: String,
+	city: String,
+	state: String,
+	zip: String,
+	fromDate: String,
+	toDate: String,
+	leavingReason: String,
+	landlordName: String,
+	landlordContactInfo: String,
+});
+
+const employerSchema = new Schema({
+	name: String,
+	title: String,
+	address: String,
+	fromDate: String,
+	toDate: String,
+	monthlyIncome: Number,
+});
+
+const financeSchema = new Schema({
+	name: String,
+	amount: String,
+});
+
+const referenceSchema = new Schema({
+	name: String,
+	phoneNumber: String,
+	relationship: String,
+});
+
+const questionSchema = new Schema({
+	question: String,
+	response: String,
+	reason: String,
+});
+
+const memberSchema = new Schema({
+	type: { type: String },
+	name: String,
+	dob: String,
+	relationship: String,
+});
+
 const applicationSchema = new Schema(
 	{
 		property: {
@@ -12,132 +57,36 @@ const applicationSchema = new Schema(
 			ref: "User",
 			required: true,
 		},
-		hasPaid: {
-			type: Boolean,
-			default: false,
+		personal: {
+			firstName: String,
+			lastName: String,
+			dob: String,
+			ssn: String,
+			phoneNumber: String,
+			email: String,
+			driversLicense: String,
 		},
-		status: {
-			type: String,
-			enum: ["In-Review", "Approved", "Rejected"],
-			default: "In-Review",
+		addresses: [addressSchema],
+		employers: [employerSchema],
+		finances: [financeSchema],
+		references: [referenceSchema],
+		questions: [questionSchema],
+		members: [memberSchema],
+		documents: [String],
+		authorization: {
+			backgroundCheck: String,
+			creditCheck: String,
+			referenceCheck: String,
+			employerCheck: String,
 		},
 		signature: {
 			name: { type: String, required: true },
 			date: { type: String, required: true },
 		},
-		applicant: {
-			firstName: String,
-			middleName: String,
-			lastName: String,
-			dob: String,
-			ssn: String,
-			email: String,
-			cellPhone: String,
-			homePhone: String,
-			driversLicense: String,
-		},
-		occupantA: {
-			name: String,
-			dob: String,
-			relation: String,
-		},
-		occupantB: {
-			name: String,
-			dob: String,
-			relation: String,
-		},
-		occupantC: {
-			name: String,
-			dob: String,
-			relation: String,
-		},
-		currentResidence: {
-			address: String,
-			city: String,
-			state: String,
-			zip: String,
-			monthlyRent: Number,
-			dates: String,
-			movingReason: String,
-			managerName: String,
-			managerNumber: String,
-		},
-		previousResidence: {
-			address: String,
-			city: String,
-			state: String,
-			zip: String,
-			monthlyRent: Number,
-			dates: String,
-			movingReason: String,
-			managerName: String,
-			managerNumber: String,
-		},
-		currentEmployer: {
-			name: String,
-			occupation: String,
-			address: String,
-			phone: String,
-			dates: String,
-			supervisorName: String,
-			monthlyPay: Number,
-		},
-		previousEmployer: {
-			name: String,
-			occupation: String,
-			address: String,
-			phone: String,
-			dates: String,
-			supervisorName: String,
-			monthlyPay: Number,
-		},
-		checkings: {
-			bank: String,
-			balance: Number,
-		},
-		savings: {
-			bank: String,
-			balance: Number,
-		},
-		creditCard: {
-			bank: String,
-			balance: Number,
-		},
-		autoLoan: {
-			bank: String,
-			balance: Number,
-		},
-		otherDebt: {
-			bank: String,
-			balance: Number,
-		},
-		reference: {
-			name: String,
-			number: String,
-			relationship: String,
-		},
-		otherReference: {
-			name: String,
-			number: String,
-			relationship: String,
-		},
-		lateOnRent: {
-			response: String,
-			reason: String,
-		},
-		partyToLawsuit: {
-			response: String,
-			reason: String,
-		},
-		doesSmoke: String,
-		hasPets: {
-			response: String,
-			info: String,
-		},
-		reasonForMoving: String,
-		additionalComments: String,
-		questions: String,
-		incomeFiles: [String],
+		hasPaid: { type: Boolean, default: false },
+		status: { type: String, default: "In-Progress" },
+		token: String,
+		adminMessage: String,
 	},
 	{
 		timestamps: true,

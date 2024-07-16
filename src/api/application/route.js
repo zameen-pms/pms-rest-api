@@ -6,11 +6,15 @@ const {
 	getObjectById,
 	updateObjectById,
 	deleteObjectById,
+	getObjectByToken,
+	updateObjectByToken,
 } = require("./controller");
 
 const router = require("express").Router();
 
 router.post("/", createObject);
+router.get("/token/:token", getObjectByToken);
+router.put("/token/:token", updateObjectByToken);
 
 router.use(verifyJwt);
 
