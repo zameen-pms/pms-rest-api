@@ -18,9 +18,9 @@ app.use(cookieParser());
 
 app.use("/", require("./api/health"));
 app.use("/auth", require("./api/auth"));
+app.use("/assets", require("./api/assets"));
 app.use(verifyJwt);
 app.use("/applications", require("./api/application"));
-app.use("/assets", require("./api/assets"));
 app.use("/comments", require("./api/comment"));
 app.use("/documents", require("./api/document"));
 app.use("/email", require("./api/email"));
