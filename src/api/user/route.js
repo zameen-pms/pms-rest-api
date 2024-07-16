@@ -12,9 +12,6 @@ const router = require("express").Router();
 
 router.post("/", createUser);
 router.get("/", getUsers);
-
-router.use(verifyJwt);
-
 router.get("/:id", checkUserExists, getUserById);
 router.put("/:id", checkUserExists, updateUserById);
 router.delete("/:id", checkUserExists, deleteUserById);

@@ -28,12 +28,12 @@ const handleLogin = async (req, res) => {
 		const { email, password } = req.body;
 		const user = await userRepo.findByEmail(email);
 		if (!user) {
-			return res.status(404).json({ error: "User not found." });
+			return res.status(404).json("User not found.");
 		}
 
 		const match = await comparePasswords(password, user.password);
 		if (!match) {
-			return res.status(400).json({ error: "Unable to login." });
+			return res.status(400).json("Unable to login.");
 		}
 
 		const userWithoutPassword = {
@@ -72,7 +72,31 @@ const handleLogin = async (req, res) => {
 			...userWithoutPassword,
 		});
 	} catch (err) {
-		res.status(500).json({ error: err.message });
+		res.status(500).json(err.message);
+	}
+};
+
+const handlePublicLogin = async (req, res) => {
+	try {
+		const { token } = req.body;
+		if (!token) return res.status(400).json("token is required.");
+
+		const match = token === process.env.FRONTEND_TOKEN;
+		if (!match) {
+			return res.status(400).json("Unable to login.");
+		}
+
+		const accessToken = jwtSign({
+			payload: {
+				role: "public",
+			},
+			secret: process.env.ACCESS_TOKEN_SECRET,
+			options: { expiresIn: "15d" },
+		});
+
+		res.json({ accessToken });
+	} catch (err) {
+		res.status(500).json(err.message);
 	}
 };
 
@@ -80,18 +104,18 @@ const handleRefreshToken = async (req, res) => {
 	try {
 		const cookies = req.cookies;
 		if (!cookies.jwt) {
-			return res.status(404).json({ error: "Not found." });
+			return res.status(404).json("Not found.");
 		}
 		const refreshToken = cookies.jwt;
 
 		const user = await userRepo.findByRefreshToken(refreshToken);
 		if (!user) {
-			return res.status(404).json({ error: "User not found." });
+			return res.status(404).json("User not found.");
 		}
 
 		const { userNotFound, accessToken } = jwtVerify(refreshToken, user);
 		if (userNotFound) {
-			return res.status(404).json({ error: "User not found." });
+			return res.status(404).json("User not found.");
 		}
 
 		const userWithoutPassword = {
@@ -103,7 +127,7 @@ const handleRefreshToken = async (req, res) => {
 
 		res.json(userWithoutPassword);
 	} catch (err) {
-		res.status(500).json({ error: err.message });
+		res.status(500).json(err.message);
 	}
 };
 
@@ -126,7 +150,7 @@ const handleLogout = async (req, res) => {
 		res.clearCookie("jwt", cookieObject);
 		res.sendStatus(204);
 	} catch (err) {
-		res.status(500).json({ error: err.message });
+		res.status(500).json(err.message);
 	}
 };
 
@@ -134,12 +158,12 @@ const handleResetRequest = async (req, res) => {
 	try {
 		const { email } = req.body;
 		if (!email) {
-			return res.status(400).json({ error: `"email" is required.` });
+			return res.status(400).json(`"email" is required.`);
 		}
 
 		const user = await userRepo.findByEmail(email);
 		if (!user) {
-			return res.status(404).json({ error: "User not found." });
+			return res.status(404).json("User not found.");
 		}
 
 		const resetToken = jwtSign({
@@ -154,7 +178,7 @@ const handleResetRequest = async (req, res) => {
 
 		res.json(resetToken);
 	} catch (err) {
-		res.status(500).json({ error: err.message });
+		res.status(500).json(err.message);
 	}
 };
 
@@ -164,7 +188,7 @@ const handleResetPassword = async (req, res) => {
 		if (!token || !newPassword) {
 			return res
 				.status(400)
-				.json({ error: `"token" and "newPassword" are required.` });
+				.json(`"token" and "newPassword" are required.`);
 		}
 
 		const { email, exp } = verify({
@@ -172,12 +196,12 @@ const handleResetPassword = async (req, res) => {
 			secret: process.env.JWT_SECRET,
 		});
 		if (new Date() > new Date(exp * 1000)) {
-			return res.status(400).json({ error: "Token has expired." });
+			return res.status(400).json("Token has expired.");
 		}
 
 		const user = await userRepo.findByEmail(email);
 		if (!user) {
-			return res.status(404).json({ error: "User not found." });
+			return res.status(404).json("User not found.");
 		}
 
 		const hashedPassword = await encryptPassword(newPassword);
@@ -185,9 +209,9 @@ const handleResetPassword = async (req, res) => {
 		if (user?.password !== undefined) {
 			const match = await comparePasswords(newPassword, user.password);
 			if (match) {
-				return res.status(400).json({
-					error: "New password cannot equal previous password.",
-				});
+				return res
+					.status(400)
+					.json("New password cannot equal previous password.");
 			}
 		}
 
@@ -198,12 +222,13 @@ const handleResetPassword = async (req, res) => {
 
 		res.sendStatus(204);
 	} catch (err) {
-		res.status(500).json({ error: err.message });
+		res.status(500).json(err.message);
 	}
 };
 
 module.exports = {
 	handleLogin,
+	handlePublicLogin,
 	handleRefreshToken,
 	handleLogout,
 	handleResetRequest,
