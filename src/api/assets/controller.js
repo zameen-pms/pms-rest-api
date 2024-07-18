@@ -37,6 +37,7 @@ const uploadAsset = async (req, res) => {
 			Bucket: bucketName,
 			Key: keyName,
 			Body: file.buffer,
+			ContentType: file.mimetype,
 		};
 		const command = new PutObjectCommand(params);
 		await s3Client.send(command);
