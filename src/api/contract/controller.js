@@ -19,7 +19,7 @@ const createObject = async (req, res) => {
 
 const getObjects = async (req, res) => {
 	try {
-		const objects = await Contract.find(req.query);
+		const objects = await Contract.find(req.query).populate("parties");
 		res.json(objects);
 	} catch (err) {
 		res.status(500).send(err.message);
