@@ -29,20 +29,13 @@ const leaseSchema = new Schema(
 			type: Number,
 		},
 		rentDate: {
-			type: Date,
+			type: Number,
 		},
-		// history: [
-		// 	{
-		// 		type: Schema.Types.ObjectId,
-		// 		ref: "LeaseHistory",
-		// 	},
-		// ],
-		// paymentHistory: [
-		// 	{
-		// 		type: Schema.Types.ObjectId,
-		// 		ref: "Payment",
-		// 	},
-		// ],
+		status: {
+			type: String,
+			enum: ["Active", "Inactive"],
+			default: "Inactive",
+		},
 	},
 	{
 		timestamps: true,

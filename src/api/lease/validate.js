@@ -7,9 +7,8 @@ const leaseValidation = Joi.object({
 	startDate: Joi.date().required(),
 	endDate: Joi.date().required(),
 	rent: Joi.number(),
-	rentDate: Joi.date(),
-	// history: Joi.array(),
-	// paymentHistory: Joi.array(),
+	rentDate: Joi.number(),
+	status: Joi.string().valid("Active", "Inactive"),
 });
 
 module.exports = leaseValidation;
