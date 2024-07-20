@@ -21,14 +21,12 @@ app.use("/auth", require("./api/auth"));
 app.use("/assets", require("./api/assets"));
 app.use(verifyJwt);
 app.use("/applications", require("./api/application"));
-app.use("/comments", require("./api/comment"));
 app.use("/contracts", require("./api/contract"));
 app.use("/documents", require("./api/document"));
 app.use("/email", require("./api/email"));
 app.use("/leases", require("./api/lease"));
 app.use("/properties", require("./api/property"));
 app.use("/users", require("./api/user"));
-app.use("/workOrders", require("./api/workOrder"));
 
 app.use((err, _req, res, _next) => {
 	res.status(500).json({ error: "Internal Server Error", details: err });
