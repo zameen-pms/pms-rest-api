@@ -22,7 +22,6 @@ app.use("/assets", require("./api/assets"));
 app.use(verifyJwt);
 app.use("/applications", require("./api/application"));
 app.use("/comments", require("./api/comment"));
-app.use("/consultations", require("./api/consultation"));
 app.use("/contracts", require("./api/contract"));
 app.use("/documents", require("./api/document"));
 app.use("/email", require("./api/email"));
