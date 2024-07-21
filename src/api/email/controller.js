@@ -10,30 +10,33 @@ const sesClient = new SESClient({
 
 const sendEmail = async (req, res) => {
 	try {
-		const { to, subject, message } = req.body;
+		const { subject, body, recipients } = req.body;
 
-		if (!to || !subject || !message) {
+		if (!subject || !body || !recipients || !Array.isArray(recipients)) {
 			return res
 				.status(400)
-				.json("to, subject, and message are required.");
+				.json("subject, body, and recipients are required.");
 		}
 
-		const params = {
-			Source: `Zameen Management <${process.env.AWS_SENDER_EMAIL}>`,
-			Destination: {
-				ToAddresses: [to],
-			},
-			Message: {
-				Body: {
-					Html: { Data: message },
+		const sendEmailPromises = recipients.map(async (recipient) => {
+			const params = {
+				Source: `Zameen Management <${process.env.AWS_SENDER_EMAIL}>`,
+				Destination: {
+					ToAddresses: [recipient],
 				},
-				Subject: { Data: subject },
-			},
-		};
-		const command = new SendEmailCommand(params);
-		const data = await sesClient.send(command);
+				Message: {
+					Subject: { Data: subject },
+					Body: {
+						Html: { Data: body },
+					},
+				},
+			};
+			const command = new SendEmailCommand(params);
+			return sesClient.send(command);
+		});
+		await Promise.all(sendEmailPromises);
 
-		res.json(data);
+		res.json({ ok: true });
 	} catch (err) {
 		res.status(500).json(err.message);
 	}
