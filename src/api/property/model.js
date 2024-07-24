@@ -13,7 +13,16 @@ const propertySchema = new Schema(
 			enum: ["Single-Family", "Duplex", "Multi-Family", "Apartment"],
 			default: "Single-Family",
 		},
-		owners: [{ type: String }],
+		owners: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "User",
+			},
+		],
+		currentLease: {
+			type: Schema.Types.ObjectId,
+			ref: "Lease",
+		},
 		availability: {
 			type: String,
 			enum: ["Available", "Unavailable", "Occupied"],

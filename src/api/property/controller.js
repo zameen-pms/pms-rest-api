@@ -25,7 +25,9 @@ const createProperty = async (req, res) => {
 
 const getProperties = async (req, res) => {
 	try {
-		const properties = await Property.find(req.query);
+		const properties = await Property.find(req.query)
+			.populate("currentLease")
+			.populate("owners");
 		res.json(properties);
 	} catch (err) {
 		res.status(500).json(err.message);
@@ -50,7 +52,13 @@ const checkPropertyExists = async (req, res, next) => {
 
 const getPropertyById = async (req, res) => {
 	try {
-		res.json(req.property);
+		const { _id: id } = req.property;
+
+		const property = await Property.findById(id)
+			.populate("currentLease")
+			.populate("owners");
+
+		res.json(property);
 	} catch (err) {
 		res.status(500).json(err.message);
 	}

@@ -14,6 +14,7 @@ const propertyValidationSchema = Joi.object({
 		"Apartment"
 	),
 	owners: Joi.array(),
+	currentLease: Joi.string(),
 	availability: Joi.string().valid("Available", "Unavailable", "Occupied"),
 	images: Joi.array(),
 	general: Joi.object(),
