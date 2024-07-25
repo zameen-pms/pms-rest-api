@@ -4,6 +4,7 @@ const allowedOrigins = [
 	"https://admin-zameen-management.netlify.app",
 	"https://zameen-management.com",
 	"https://zameen-management.netlify.app",
+	"https://*.zameen-management.com",
 ];
 
 module.exports = allowedOrigins;
