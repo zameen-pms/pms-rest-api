@@ -123,6 +123,7 @@ const handleRefreshToken = async (req, res) => {
 			accessToken,
 			email: user.email,
 			role: user.role,
+			status: user.status,
 		};
 
 		res.json(userWithoutPassword);
