@@ -7,6 +7,7 @@ const allowedOrigins = [
 	"https://manager.zameen-management.com",
 	"https://tenant.zameen-management.com",
 	"https://owner.zameen-management.com",
+	"http://manager.localhost:5001",
 ];
 
 module.exports = allowedOrigins;
