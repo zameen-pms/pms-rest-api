@@ -31,6 +31,11 @@ const leaseSchema = new Schema(
 		rentDate: {
 			type: Number,
 		},
+		status: {
+			type: String,
+			enum: ["Inactive", "Active"],
+			default: "Inactive",
+		},
 	},
 	{
 		timestamps: true,
